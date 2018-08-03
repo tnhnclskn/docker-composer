@@ -1,4 +1,4 @@
-FROM tnhnclskn/symfony
+FROM tnhnclskn/php-w-exts
 
 MAINTAINER Tunahan ÇALIŞKAN <mail@tunahancaliskan.com.tr>
 
