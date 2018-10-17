@@ -20,11 +20,21 @@ RUN apt-get install -y git && \
     composer --ansi --version --no-interaction && \
     rm -rf /tmp/* /tmp/.htaccess
 
+ARG user=composer
+ARG group=composer
+ARG uid=1000
+ARG gid=1000
+ARG COMPOSER_HOME=/var/www/html
+
+RUN mkdir -p $COMPOSER_HOME \
+  && chown ${uid}:${gid} $COMPOSER_HOME \
+  && groupadd -g ${gid} ${group} \
+  && useradd -d "$COMPOSER_HOME" -u ${uid} -g ${gid} -m -s /bin/bash ${user}
 
 COPY docker-entrypoint.sh /docker-entrypoint.sh
 RUN chmod +x /docker-entrypoint.sh
 ENTRYPOINT ["/docker-entrypoint.sh"]
 
-WORKDIR /var/www/html
+WORKDIR $COMPOSER_HOME
 
 CMD ["composer"]
