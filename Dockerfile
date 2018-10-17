@@ -6,6 +6,7 @@ ENV COMPOSER_ALLOW_SUPERUSER 1
 ENV COMPOSER_HOME /tmp
 ENV COMPOSER_VERSION 1.6.5
 
+USER root
 RUN apt-get install -y git && \
     curl -s -f -L -o /tmp/installer.php https://raw.githubusercontent.com/composer/getcomposer.org/b107d959a5924af895807021fcef4ffec5a76aa9/web/installer && \
     php -r " \
@@ -35,7 +36,7 @@ COPY docker-entrypoint.sh /docker-entrypoint.sh
 RUN chmod +x /docker-entrypoint.sh
 ENTRYPOINT ["/docker-entrypoint.sh"]
 
-WORKDIR /var/www/html
 USER ${user}
+WORKDIR /var/www/html
 
 CMD ["composer"]
