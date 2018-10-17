@@ -36,5 +36,6 @@ RUN chmod +x /docker-entrypoint.sh
 ENTRYPOINT ["/docker-entrypoint.sh"]
 
 WORKDIR /var/www/html
+USER ${user}
 
 CMD ["composer"]
